@@ -9,11 +9,11 @@ import { View, Text  } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { COLOR, ThemeProvider, Card, ListItem, Toolbar, BottomNavigation} from 'react-native-material-ui';
-
+import Router from './Router';
 import reducers from './reducers';
-import SessionList from './components/SessionList';
-import SongList from './components/SongList';
-import { YourToolbar } from './components/common';
+import SessionList from './sessions/components/SessionList';
+import SongList from './songs/components/SongList';
+import { YourToolbar } from './common';
 
 // We want to setup our firebase connection before App gets rendered /
 // To get a hook no that we can use a lifecycle method!
@@ -21,7 +21,7 @@ class App extends Component {
 
   componentWillMount(){
     // Firebase initialization
-  /*  const config = {
+    const config = {
        apiKey: "AIzaSyAQ4zsdnxfztLKWkbS3X-XQg_OSh8FQyUo",
        authDomain: "yoursession-439bc.firebaseapp.com",
        databaseURL: "https://yoursession-439bc.firebaseio.com",
@@ -29,8 +29,6 @@ class App extends Component {
        messagingSenderId: "252904387114"
      };
      firebase.initializeApp(config);
-*/
-
   }
 
 
@@ -39,12 +37,7 @@ class App extends Component {
     return (
       <Provider store={createStore(reducers)}>
       <ThemeProvider>
-      <View>
-        <YourToolbar title="Your Sessions" />
-        <SessionList/>
-        <SongList/>
-
-      </View>
+        <Router />
       </ThemeProvider>
       </Provider>
     );
