@@ -6,30 +6,32 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Card, ListItem } from 'react-native-material-ui';
+import { connect } from 'react-redux';
 
 class SessionList extends Component{
+  renderItems(){
+    return this.props.sessions.map((s)=>{
+      return   <ListItem key="s.id" centerElement={{
+          primaryText:s.title,
+          secondaryText:`${s.number_of_songs} songs`
+        }}
+        />
+    })
+  }
   render(){
     return (
       <View>
-      <ListItem centerElement={{
-        primaryText: 'Trad',
-        secondaryText: 'Top Favourites'
-      }}
-      />
-      <ListItem centerElement={{
-        primaryText: 'Busking',
-        secondaryText: 'Popular songs'
-      }}
-      />
-      <ListItem centerElement={{
-        primaryText: 'Irish Trad Mix',
-        secondaryText: 'A little out there'
-      }}
-      />
+          { this.renderItems() }
       </View>
   );
   }
 
 }
 
-export default SessionList;
+function mapStateToProps(state){
+  return {
+    'sessions': state.sessions
+  };
+}
+
+export default connect(mapStateToProps)(SessionList);
