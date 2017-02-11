@@ -1,29 +1,24 @@
-import firbase from 'firebase';
+import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 import {
-  EMAIL_CHANGED,
-  PASSWORD_CHANGED,
+  LOGIN_DETAILS_CHANGED,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL
 } from './actionTypes';
 
-export const emailChanged = (email) => {
+export const loginDetailsChanged = ({ prop, value }) => {
   return {
-    type: EMAIL_CHANGED,
-    payload: email
+    type: LOGIN_DETAILS_CHANGED,
+    payload: {prop, value}
   };
 }
 
-export const passwordChanged = (password) => {
-  return {
-    type: PASSWORD_CHANGED,
-    payload: password
-  };
-}
 
 
 export const loginUser = ({ email, password }) => {
+  Actions.main();
   return (dispatch) => {
       dispatch({type: LOGIN_USER });
       firebase.auth().signInWithEmailAndPassword(email, password)

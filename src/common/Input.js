@@ -26,7 +26,8 @@ const styles = {
     paddingLeft: 5,
     fontSize: 18,
     lineHeight: 23,
-    flexGrow: 2
+    flexGrow: 2,
+    textAlign: 'left'
   },
   labelStyle: {
     fontSize: 18,

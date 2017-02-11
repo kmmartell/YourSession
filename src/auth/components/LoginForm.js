@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Button, Subheader} from 'react-native-material-ui';
+import { Card,  Subheader} from 'react-native-material-ui';
+import { Button } from '../../common';
 import * as actions from '../actions';
 import { Input } from '../../common';
 
 
 class LoginForm extends Component {
-  componentWillMount(){
-    console.log('Login form mounted');
-  }
   loginPressed(){
-    console.log('Login Pressed');
     const { email, password } = this.props;
+
     this.props.loginUser({ email, password });
   }
   render(){
@@ -22,7 +20,7 @@ class LoginForm extends Component {
         <Input
           label="Email"
           placeholder="kayla@coolbeans.com"
-          onChangeText = { this.props.emailChanged.bind(this)}
+          onChangeText = { value  => this.props.loginDetailsChanged({prop:'email', value })}
           value={this.props.email}
 
         />
@@ -30,26 +28,22 @@ class LoginForm extends Component {
         <Input
           label="Password"
           placeholder="********"
-          onChangeText = { this.props.passwordChanged.bind(this)}
+          secureTextEntry
+            onChangeText = { value  => this.props.loginDetailsChanged({prop:'password', value })}
           value={this.props.password}
 
         />
-      <TouchableOpacity onPress={this.loginPressed.bind(this)} >
-          <Button raised primary text="Login"></Button>
-        </TouchableOpacity>
+      <Text>{this.props.error}</Text>
+      <Button onPress={() => this.loginPressed()}>Login</Button>
+
       </Card>
     );
-
   }
-
-
 }
 
 const mapStateToProps = state => {
-  return {
-    email: state.auth.email,
-    password: state.auth.password
-  }
+  const { email, password, error } = state.auth;
+  return { email, password, error };
 }
 
 

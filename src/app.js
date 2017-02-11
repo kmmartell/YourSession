@@ -5,10 +5,13 @@
 
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import ReduxThunk from 'redux-thunk';
 import { View, Text  } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+
+import { createStore, applyMiddleware} from 'redux';
 import { COLOR, ThemeProvider, Card, ListItem, Toolbar, BottomNavigation} from 'react-native-material-ui';
+
 import Router from './Router';
 import reducers from './reducers';
 import SessionList from './sessions/components/SessionList';
@@ -31,11 +34,9 @@ class App extends Component {
      firebase.initializeApp(config);
   }
 
-
-
   render() {
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
       <ThemeProvider>
         <Router />
       </ThemeProvider>
