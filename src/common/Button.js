@@ -27,11 +27,14 @@ const styles = {
     flex: 1,
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    borderRadius: 5,
+    borderColor: 'green',
+    borderWidth:'2px',
+    borderRadius: 3,
     borderWidth: 1,
-    borderColor: '#007aff',
+    borderColor: 'green',
     marginLeft: 5,
     marginRight: 5,
+    marginTop:20,
     height:50
   }
 };

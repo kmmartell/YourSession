@@ -6,13 +6,35 @@
 import React, { Component } from 'React';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
+import { Card } from 'react-native-material-ui';
+import { Input, Section } from '../../common';
 import * as actions from '../actions';
 
 class SessionForm extends Component{
   render(){
+    const { name, notes } = this.props;
     return (
       <View>
-        <Text>Session Form</Text>
+        <Section>
+          <Input
+            label="Session Name"
+            placeholder="Trad on Fridays"
+            value={name}
+            onChangeText={value => this.props.updateSession({ prop: 'name', value })}
+          />
+        </Section>
+        <Section>
+
+          <Input
+            label="Notes"
+            placeholder="Fancy dancy notes..."
+            multiline ={true}
+            value={notes}
+            onChangeText = { value => this.props.updateSession( { prop: 'notes', value} ) }
+          />
+
+        </Section>
+
       </View>
 
     );
@@ -21,8 +43,8 @@ class SessionForm extends Component{
 }
 
 const mapStateToProps = state => {
-  const { name } = state.session;
-  return { name };
+  const { name, notes } = state.sessions.selected;
+  return { name, notes };
 }
 
 export default connect(mapStateToProps, actions)(SessionForm);

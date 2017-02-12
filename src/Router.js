@@ -1,8 +1,9 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './auth/components/LoginForm';
-import SessionList from './sessions/components/SessionList';
+import { SessionList, SessionCreate, SessionEdit } from './sessions/components';
 import SongList from './songs/components/SongList';
+
 
 const RouterComponent = () => {
   return (
@@ -11,8 +12,28 @@ const RouterComponent = () => {
         <Scene key="login" initial component={LoginForm} title="Login" />
     </Scene>
     <Scene key="main">
-      <Scene key="sessionList" component={SessionList} title="Sessions" />
-        <Scene key="songList" component={SongList} title="Tunes" />
+      <Scene
+        key="sessionList"
+        onRight = { () => Actions.sessionCreate() }
+        rightTitle = "Add Session"
+        component={SessionList}
+        title="Sessions"
+      />
+      <Scene
+        key="sessionCreate"
+        component={SessionCreate}
+        title="New Session"
+      />
+      <Scene
+        key="sessionEdit"
+        component={SessionEdit}
+        title="Edit Session"
+      />
+      <Scene
+        key="songList"
+        component={SongList}
+        title="Tunes"
+      />
 
     </Scene>
 

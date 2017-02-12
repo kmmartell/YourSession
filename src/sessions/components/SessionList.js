@@ -7,13 +7,18 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Card, ListItem } from 'react-native-material-ui';
 import { connect } from 'react-redux';
+import _ from 'lodash'; //manipulation for objects/arrays
+import * as actions from '../actions';
 
 class SessionList extends Component{
+  componentWillMount(){
+    this.props.fetchSessions();
+  }
   renderItems(){
     return this.props.sessions.map((s)=>{
       return   <ListItem key="s.id" centerElement={{
-          primaryText:s.title,
-          secondaryText:`${s.number_of_songs} songs`
+          primaryText:s.name,
+          secondaryText:`asdf`
         }}
         />
     })
@@ -29,9 +34,10 @@ class SessionList extends Component{
 }
 
 function mapStateToProps(state){
-  return {
-    'sessions': state.sessions
-  };
+  const sessions = _.map(state.sessions.all, (session, uid) => {
+    { return { ...session, uid }; };
+  })
+  return { sessions };
 }
 
-export default connect(mapStateToProps)(SessionList);
+export default connect(mapStateToProps, actions)(SessionList);
