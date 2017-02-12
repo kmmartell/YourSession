@@ -2,14 +2,14 @@ import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './auth/components/LoginForm';
 import { SessionList, SessionCreate, SessionEdit } from './sessions/components';
-import SongList from './songs/components/SongList';
+import { SongList, SongCreate, SongEdit } from './songs/components';
 
 
 const RouterComponent = () => {
   return (
     <Router sceneStyle={{ paddingTop: 65 }}>
     <Scene key="auth">
-        <Scene key="login" initial component={LoginForm} title="Login" />
+        <Scene key="login" component={LoginForm} title="Login" />
     </Scene>
     <Scene key="main">
       <Scene
@@ -33,10 +33,21 @@ const RouterComponent = () => {
         key="songList"
         component={SongList}
         title="Tunes"
+        onRight = { () => Actions.songCreate() }
+        rightTitle = "Add Song"
+      />
+      <Scene
+        key="songCreate"
+        component={SongCreate}
+        title="New Song"
+      />
+      <Scene
+        key="songEdit"
+        component={SongEdit}
+        title="Edit Song"
       />
 
     </Scene>
-
     </Router>
   );
 };

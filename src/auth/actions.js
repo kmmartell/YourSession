@@ -18,7 +18,7 @@ export const loginDetailsChanged = ({ prop, value }) => {
 
 
 export const loginUser = ({ email, password }) => {
-  Actions.main();
+
   return (dispatch) => {
       dispatch({type: LOGIN_USER });
       firebase.auth().signInWithEmailAndPassword(email, password)
@@ -34,6 +34,7 @@ const loginUserFail = (dispatch) => {
 }
 
 const loginUserSuccess = (dispatch, user) => {
+  Actions.main();
   return {
     type: LOGIN_USER_SUCCESS,
     payload: user
